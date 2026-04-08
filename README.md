@@ -43,9 +43,7 @@ The local environment acts only as a **forwarding layer** — all actual executi
 │   └── file-transfer.md    # File operations  
 └── scripts  
     └── kb_execute.py       # Command forwarding core```  
-  
-### Key Components  
-  
+```
 * 📘 `SKILL.md`  
   Defines terminology, execution constraints, and default workflows (**must-read for agents**)  
   
@@ -68,10 +66,14 @@ The local environment acts only as a **forwarding layer** — all actual executi
   
 ## 🚀 Quick Start  
   
-👉 Download this repository (ZIP) and load it into your agent environment to start using it.  
-Or
-**get from clawhub**: https://clawhub.ai/liuchuan01/ais-skill
-**get from clawhub**: https://clawhub.ai/liuchuan01/ais-skill
+👉 Download this repository (ZIP) and tell your agent to install it.  
+
+
+👉 **Get from clawhub**: https://clawhub.ai/liuchuan01/ais-skill
+
+
+👉 **Get from skillhub**: https://skillhub.tencent.com/skills/ais-skill
+
 ---  
   
 ## ⚙️ Configuration  

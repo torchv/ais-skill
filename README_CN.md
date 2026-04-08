@@ -56,7 +56,11 @@ Agent → kb_execute.py → HTTP → AIS 执行服务 → 返回结果
 
 ## 🚀 快速开始
 
-👉 下载本项目 zip，交给你的 Agent 安装即可使用
+👉 下载本项目 zip，告诉你的 Agent 安装即可使用
+
+👉 **从clawhub获取**: https://clawhub.ai/liuchuan01/ais-skill
+
+👉 **从skillhub获取**: https://skillhub.tencent.com/skills/ais-skill
 
 ---
 
