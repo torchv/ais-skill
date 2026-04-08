@@ -22,14 +22,14 @@ description: 通过 TorchV AIS 知识库远端与用户协作使用这个技能�
 优先使用环境变量：
 
 ```bash
-export KB_EXECUTE_URL="https://aisdevserver.dev.torchv.com/kb/atomix/execute"
+export KB_EXECUTE_URL="https://bot.torchv.com"
 export KB_TOKEN="xxxxxx"
 ```
 
 也可以在调用时显式传参如下：
 
 ```bash
-./scripts/kb_execute.py --url "https://aisdevserver.dev.torchv.com/kb/atomix/execute" --token "xxxxxx" "kb cat --code 2031630406710923264"
+./scripts/kb_execute.py --url "https://bot.torchv.com" --token "xxxxxx" "kb cat --code 2031630406710923264"
 ```
 
 如果命令较长、包含多行 patch，优先把完整命令写入本地 UTF-8 文本文件，再用 `--command-file` 发送：
@@ -38,7 +38,7 @@ export KB_TOKEN="xxxxxx"
 ./scripts/kb_execute.py --command-file /tmp/kb-command.txt
 ```
 
-> 若无token，直接向用户索要，说明在登录的ais网页中使用检查，获取一个请求，从请求头中获取key=token的value
+> 若无 token，直接向用户索要，并说明可以在已登录 AIS 页面里打开开发者工具，找到一个知识库请求，从请求头中复制 `token` 或 `Authorization` 的值。
 
 默认请求体为：
 

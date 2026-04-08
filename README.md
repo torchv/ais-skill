@@ -1,4 +1,4 @@
-# AIS Skill Overview  
+# AIS Skill Overview
   
 [English](README.md) | [中文](README_CN.md)  
   
@@ -69,7 +69,9 @@ The local environment acts only as a **forwarding layer** — all actual executi
 ## 🚀 Quick Start  
   
 👉 Download this repository (ZIP) and load it into your agent environment to start using it.  
-  
+Or
+**get from clawhub**: https://clawhub.ai/liuchuan01/ais-skill
+**get from clawhub**: https://clawhub.ai/liuchuan01/ais-skill
 ---  
   
 ## ⚙️ Configuration  
@@ -77,7 +79,9 @@ The local environment acts only as a **forwarding layer** — all actual executi
 It is recommended to use environment variables:  
   
 ```bash  
-export KB_EXECUTE_URL="https://aisdevserver.dev.torchv.com/kb/atomix/execute"export KB_TOKEN="your-token"```  
+export KB_EXECUTE_URL="https://bot.torchv.com"
+export KB_TOKEN="your-token"
+```  
   
 ---  
   
@@ -86,29 +90,28 @@ export KB_EXECUTE_URL="https://aisdevserver.dev.torchv.com/kb/atomix/execute"exp
 You can also provide the URL and token directly to the agent, which will execute commands like:  
   
 ```bash  
-./scripts/kb_execute.py \  --url "https://aisdevserver.dev.torchv.com/kb/atomix/execute" \  --token "your-token" \  "kb ls"```  
+./scripts/kb_execute.py \
+  --url "https://bot.torchv.com" \
+  --token "your-token" \
+  "kb ls"
+```  
   
 ---  
   
 ### 🌐 Getting `KB_EXECUTE_URL`  
   
-`KB_EXECUTE_URL` is the AIS execution endpoint.  
+`KB_EXECUTE_URL` only needs the AIS site address.  
   
-📌 Steps:  
-  
-1. Open your AIS instance (e.g. `https://ais.xxx.com`)  
-2. Append the fixed path:  
-  
-```text  
-/kb/atomix/execute  
-```  
-  
-👉 Example:  
-  
-```text  
-https://bot.torchv.com/kb/atomix/execute  
-```  
-  
+📌 Steps:
+
+1. Open your AIS instance
+2. Copy the site origin from the browser address bar
+
+👉 Example:
+
+```text
+https://bot.torchv.com
+```
 ---  
   
 ### 🔐 Getting `KB_TOKEN`  

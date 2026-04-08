@@ -65,7 +65,7 @@ Agent → kb_execute.py → HTTP → AIS 执行服务 → 返回结果
 推荐使用环境变量：
 
 ```bash
-export KB_EXECUTE_URL="https://aisdevserver.dev.torchv.com/kb/atomix/execute"
+export KB_EXECUTE_URL="https://bot.torchv.com"
 export KB_TOKEN="xxxxxx"
 ```
 
@@ -77,7 +77,7 @@ export KB_TOKEN="xxxxxx"
 它将通过运行时指定：
 ```bash
 ./scripts/kb_execute.py \
-  --url "https://aisdevserver.dev.torchv.com/kb/atomix/execute" \
+  --url "https://bot.torchv.com" \
   --token "xxxxxx" \
   "kb ls"
 ```
@@ -86,21 +86,17 @@ export KB_TOKEN="xxxxxx"
 
 ## 🌐 获取 `KB_EXECUTE_URL`
 
-`KB_EXECUTE_URL` 是 AIS 知识库执行接口地址。
+`KB_EXECUTE_URL` 只需要填写 AIS 站点地址。
 
 📌 获取方式：
 
-1. 打开你正在使用的 AIS 页面（例如：`https://ais.xxx.com`）
-2. 在域名后拼接：
-
-```
-/kb/atomix/execute
-```
+1. 打开你正在使用的 AIS 页面
+2. 复制浏览器地址栏里的站点根地址
 
 👉 示例：
 
 ```text
-https://bot.torchv.com/kb/atomix/execute
+https://bot.torchv.com
 ```
 
 ---

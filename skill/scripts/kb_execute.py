@@ -10,7 +10,11 @@ import os
 import sys
 import uuid
 import urllib.error
+import urllib.parse
 import urllib.request
+
+
+EXECUTE_PATH = "/kb/atomix/execute"
 
 
 def parse_header(raw_header: str) -> tuple[str, str]:
@@ -49,6 +53,17 @@ def parse_json_body(body: bytes) -> object | None:
 def read_command_file(path: str) -> str:
     with open(path, "r", encoding="utf-8") as handle:
         return handle.read()
+
+
+def normalize_execute_url(raw_url: str) -> str:
+    parsed = urllib.parse.urlparse(raw_url)
+    if not parsed.scheme or not parsed.netloc:
+        raise ValueError(f"invalid KB execute URL: {raw_url!r}")
+    if parsed.path == EXECUTE_PATH:
+        return urllib.parse.urlunparse(parsed)
+    if parsed.path in ("", "/"):
+        return urllib.parse.urlunparse(parsed._replace(path=EXECUTE_PATH, params="", query="", fragment=""))
+    return urllib.parse.urlunparse(parsed)
 
 
 def build_auth_headers(token: str) -> dict[str, str]:
@@ -305,7 +320,7 @@ def main() -> int:
     parser.add_argument(
         "--url",
         default=os.environ.get("KB_EXECUTE_URL"),
-        help="KB execute endpoint. Defaults to env KB_EXECUTE_URL.",
+        help="AIS site URL or full KB execute endpoint. Defaults to env KB_EXECUTE_URL.",
     )
     parser.add_argument(
         "--token",
@@ -336,6 +351,11 @@ def main() -> int:
         parser.error("missing KB execute URL; pass --url or set KB_EXECUTE_URL")
     if not args.token:
         parser.error("missing KB token; pass --token or set KB_TOKEN")
+
+    try:
+        args.url = normalize_execute_url(args.url)
+    except ValueError as exc:
+        parser.error(str(exc))
 
     headers: dict[str, str] = {}
     try:
