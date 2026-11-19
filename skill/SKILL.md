@@ -10,6 +10,15 @@ AIS 是一个**持久化、版本化的Knowledge Base**
 AIS 中的操作会真实生效，且用户也会通过UI使用。可能因为权限、并发或约束失败。
 通过这个技能操作远端 KB/AIS 时，不要假设本机存在 `kb` 可执行文件。普通 `kb ...` 命令始终交给 [scripts/kb_execute.py](./scripts/kb_execute.py) 发送到 KB 执行服务；文件上传、文件直下载属于特殊能力，走脚本内置的文件接口，不走 `kb ...` 字符串。
 
+## 首次连接
+
+本技能需要两样东西才能工作：
+1. 服务地址（如 https://ais.example.com 或者用户私有化实例 http://ip:port）
+2. API Token（形如 tk-xxxxxxxx）
+
+获取 Token：登录 AIS → 左下角头像进入管理后台 → 开放密钥 → 创建 API Key按钮 -> 将授权权限中的原子性（AIS原子命令）一项改为可读，权限渗透保持遵循密钥创建者权限，点击创建即可
+或者使用这个地址直接进入开放密钥页面：（http://ip:port/setting/apikeys）
+如果无法访问管理后台或找不到菜单，请告知用户该密钥需要 当前用户的角色具有 管理中心 - 开放平台 - 开放密钥 的权限，请联系管理员开启
 
 ## 术语约定：
 
@@ -40,8 +49,6 @@ export KB_TOKEN="xxxxxx"
 ```bash
 ./scripts/kb_execute.py --command-file /tmp/kb-command.txt
 ```
-
-> 若无 token，直接向用户索要，并说明可以在已登录 AIS 页面里打开开发者工具，找到一个知识库请求，从请求头中复制 `token` 或 `Authorization` 的值。
 
 默认请求体为：
 
