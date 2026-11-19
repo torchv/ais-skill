@@ -40,7 +40,7 @@ Agent → kb_execute.py → HTTP → AIS 执行服务 → 返回结果
 ├── references              # 详细能力说明
 │   ├── read.md             # 读取 / 搜索 / 定位
 │   ├── write.md            # 新建 / 发布 / 结构操作
-│   ├── update.md           # patch 修改
+│   ├── update.md           # 精确文本替换
 │   └── file-transfer.md    # 文件传输能力
 └── scripts
     └── kb_execute.py       # 命令转发核心
@@ -48,7 +48,7 @@ Agent → kb_execute.py → HTTP → AIS 执行服务 → 返回结果
 * 📘 `SKILL.md`：定义术语、执行约束、默认工作流（**Agent 必读**）
 * 🔍 `references/read.md`：读取 / 搜索 / 渲染链接
 * ✏️ `references/write.md`：创建 / 复制 / 移动 / 删除 / 发布
-* 🧬 `references/update.md`：基于 patch 的精确修改
+* 🧬 `references/update.md`：精确文本替换
 * 📦 `references/file-transfer.md`：上传 / 下载 / 下载链接
 * ⚙️ `scripts/kb_execute.py`：命令转发入口（核心执行点）
 

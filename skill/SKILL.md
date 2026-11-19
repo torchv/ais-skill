@@ -8,7 +8,7 @@ description: 通过 TorchV AIS 知识库远端与用户协作使用这个技能�
 你拥有一个内置的知识库AIS(通过kb命令操作)。你的职责是精确完成当前 KB 任务，除非用户要求，不要大规模进行改动。
 AIS 是一个**持久化、版本化的Knowledge Base**
 AIS 中的操作会真实生效，且用户也会通过UI使用。可能因为权限、并发或约束失败。
-通过这个技能操作远端 KB/AIS 时，不要假设本机存在 `kb` 可执行文件。普通 `kb ...` 命令始终交给 [scripts/kb_execute.py](./scripts/kb_execute.py) 发送到 KB 执行服务；文件上传、文件直下载、生成下载链接属于特殊能力，走脚本内置的文件接口，不走 `kb ...` 字符串。
+通过这个技能操作远端 KB/AIS 时，不要假设本机存在 `kb` 可执行文件。普通 `kb ...` 命令始终交给 [scripts/kb_execute.py](./scripts/kb_execute.py) 发送到 KB 执行服务；文件上传、文件直下载属于特殊能力，走脚本内置的文件接口，不走 `kb ...` 字符串。
 
 
 ## 术语约定：
@@ -35,7 +35,7 @@ export KB_TOKEN="xxxxxx"
 ./scripts/kb_execute.py --url "https://bot.torchv.com" --token "xxxxxx" "kb cat --code 2031630406710923264"
 ```
 
-如果命令较长、包含多行 patch，优先把完整命令写入本地 UTF-8 文本文件，再用 `--command-file` 发送：
+如果命令较长、包含多行正文，优先把完整命令写入本地 UTF-8 文本文件，再用 `--command-file` 发送：
 
 ```bash
 ./scripts/kb_execute.py --command-file /tmp/kb-command.txt
@@ -58,7 +58,13 @@ Content-Type: application/json
 token: <KB_TOKEN>
 ```
 
-如还需要其他头，追加 `--header key=value`。
+用户直接调用时使用自己的凭据。应用内调用时，通过已有的 `--header` 参数透传当前请求的上下文，例如：
+
+```bash
+./scripts/kb_execute.py --header "appId=$APP_ID" --header "threadId=$THREAD_ID" "kb ls"
+```
+
+有任务上下文时一并传入 `taskId`。服务端按应用能力和可访问仓库执行命令。遇到 `APP_TOOL_DISABLED` 时向用户说明应用能力受限，保留原调用上下文。部署支持的命令可用 `kb help` 查看。
 
 ## 运行命令
 
@@ -73,7 +79,7 @@ token: <KB_TOKEN>
 
 脚本会向执行服务发起 POST 请求并输出响应；如果服务返回 JSON，脚本会格式化打印。命令失败后，不要假设 KB 状态已经变化，先重新读取确认。
 
-文件相关能力直接走脚本内置参数，不走 `kb ...` 字符串：
+上传和直接下载使用脚本内置参数。Atomix 中生成临时下载链接可执行 `kb download_link --code <DOC_CODE> --extract-is false`。省略该命令的 `--extract-is` 时返回提取内容链接。对 `kb write` 创建的在线页面优先使用默认值；请求原文件可能返回业务错误。
 
 ```bash
 ./scripts/kb_execute.py --upload-file ./demo.pdf --path-name "/团队空间/附件"
@@ -88,7 +94,7 @@ token: <KB_TOKEN>
 
 - 先确认 `KB_EXECUTE_URL` 和 `KB_TOKEN` 已提供，或本次调用显式传入 `--url` 和 `--token`。
 - 如果缺少执行地址或 token，立即停止并向用户索取，不要继续猜测或尝试 KB 命令。
-- 多行命令、复杂 HTML 或 patch 优先走 `--command-file`，避免 shell 转义破坏命令正文。
+- 多行命令、复杂 HTML 优先走 `--command-file`，避免 shell 转义破坏命令正文。
 
 ## 默认工作流
 
@@ -104,7 +110,7 @@ token: <KB_TOKEN>
 
 - 仓库、目录、文档都可能同名；不唯一时先消歧，不要猜。
 - 后续分析和修改以 `kb cat` 返回内容为准。
-- `kb write` 或 `kb edit --patch` 写入的正文优先是 HTML，不是 Markdown 正文。
+- `kb write` 或 `kb edit` 写入的正文优先是 HTML，不是 Markdown 正文。
 - 只有在明确不存在目标文档时才新建。
 - 修改已有文档时优先局部变更。
 - 删除、移动、发布属于高风险操作，只有用户明确要求时才执行。
@@ -115,5 +121,5 @@ token: <KB_TOKEN>
 
 - 读取、搜索、定位和渲染链接：看 [references/read.md](./references/read.md)
 - 新建文档、目录、移动、删除、发布：看 [references/write.md](./references/write.md)
-- 对已有文档做 patch 精确修改：看 [references/update.md](./references/update.md)
+- 对已有文档做精确文本替换：看 [references/update.md](./references/update.md)
 - 文件上传、下载：看 [references/file-transfer.md](./references/file-transfer.md)

@@ -24,7 +24,7 @@
 
 ### `kb write`
 
-用于创建新文档。
+应用启用强制会话目录策略时，新文档会写入当前会话目录的直接子级。后续读取或分享使用响应中的实际路径或 code。若返回 `missing_thread_context`，检查 HTTP 会话头的透传；若返回 `workspace_folder_unresolved`，检查会话与目录的映射。
 
 - 常用写法：
   - `kb write --name <repo/path.md> --content '<html...>'`
@@ -136,6 +136,6 @@ kb publish --doc-code DOC_12345
 ## 不在本文件覆盖的内容
 
 - 查找仓库和读取文档
-- 基于 patch 的精确修改
+- 精确文本替换
 
 读取类操作看 [read.md](./read.md)，精确修改看 [update.md](./update.md)。

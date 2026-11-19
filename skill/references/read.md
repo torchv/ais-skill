@@ -81,7 +81,7 @@ kb search --query "发布流程" --repo-code TEAM_DOCS --path process/ --mode hy
   - `-n`  
 - 使用要求：  
   - 修改前必须先读。  
-  - 后续 patch 内容要基于返回的 HTML。  
+  - 后续替换使用正文中唯一的连续文本。
 - 示例：  
   
 ```text  
@@ -105,9 +105,9 @@ kb render DOC_12345,DOC_67890
 
 - 新建文档
 - 新建目录、移动、删除、发布
-- 基于 patch 的精确修改
+- 精确文本替换
 
 需要写入或修改时，直接按需阅读本 skill 自带的参考资料：
 
 - 新建与结构操作看 [write.md](./write.md)
-- 基于 patch 的精确修改看 [update.md](./update.md)
+- 精确文本替换看 [update.md](./update.md)

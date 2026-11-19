@@ -39,7 +39,7 @@ The local environment acts only as a **forwarding layer** — all actual executi
 ├── references              # Detailed capability docs  
 │   ├── read.md             # Read / search / locate  
 │   ├── write.md            # Create / publish / structure ops  
-│   ├── update.md           # Patch-based updates  
+│   ├── update.md           # Exact string replacement
 │   └── file-transfer.md    # File operations  
 └── scripts  
     └── kb_execute.py       # Command forwarding core```  
@@ -54,7 +54,7 @@ The local environment acts only as a **forwarding layer** — all actual executi
   Create, copy, move, delete, and publish operations  
   
 * 🧬 `references/update.md`  
-  Precise modifications using patch semantics  
+  Replace an exact string in an existing document
   
 * 📦 `references/file-transfer.md`  
   Upload, download, and link generation  

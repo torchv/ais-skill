@@ -245,10 +245,16 @@ def extract_download_name(content_disposition: str | None) -> str | None:
     return None
 
 
-def send_request(request: urllib.request.Request, timeout: float) -> int:
+def send_request(request: urllib.request.Request, timeout: float, *, atomix: bool = False) -> int:
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
-            print_response(response.read())
+            body = response.read()
+            print_response(body)
+            if atomix:
+                envelope = parse_json_body(body)
+                result = envelope.get("data") if isinstance(envelope, dict) else None
+                if not isinstance(result, dict) or result.get("success") is not True:
+                    return 1
             return 0
     except urllib.error.HTTPError as exc:
         print(f"HTTP {exc.code}", file=sys.stderr)
@@ -406,7 +412,7 @@ def main() -> int:
         method="POST",
     )
 
-    return send_request(request, args.timeout)
+    return send_request(request, args.timeout, atomix=True)
 
 
 if __name__ == "__main__":
